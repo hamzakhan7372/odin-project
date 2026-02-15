@@ -12,7 +12,7 @@ function getComputerChoice() {
 }
 
 function getUserInput() {
-    const userInput = prompt("Please enter your choice: ")
+    const userInput = prompt("Please enter your choice: ");
     return userInput;
 }
 
@@ -21,10 +21,10 @@ function playGame() {
     let computerScore = 0;
     let humanScore = 0;
     for (let i = 0; i < 3; i++) {
-        let computerChoice = getComputerChoice()
-        let humanChoice = getUserInput()
-        console.log(computerChoice)
-        console.log(humanChoice)
+        let computerChoice = getComputerChoice();
+        let humanChoice = getUserInput();
+        console.log(computerChoice);
+        console.log(humanChoice);
         humanChoice = humanChoice.toLowerCase();
 
         if (humanChoice === computerChoice) {
@@ -51,13 +51,13 @@ function playGame() {
         console.log("human wins");
     }
     else if (humanScore < computerScore) {
-        console.log("computor wins")
+        console.log("computer wins");
     }
     else {
-        console.log("it's a tie")
+        console.log("it's a tie");
     }
 
 }
 
 
-playGame()
+playGame();
