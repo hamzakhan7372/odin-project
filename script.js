@@ -1,3 +1,4 @@
+
 function getComputerChoice() {
     const random = Math.random();
     if (random < 0.33) {
