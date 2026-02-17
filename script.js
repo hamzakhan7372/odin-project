@@ -1,4 +1,3 @@
-
 function getComputerChoice() {
     const random = Math.random();
     if (random < 0.33) {
@@ -12,53 +11,59 @@ function getComputerChoice() {
     }
 }
 
-function getUserInput() {
-    const userInput = prompt("Please enter your choice: ");
-    return userInput;
+let computerScore = 0;
+let humanScore = 0;
+
+
+const resultsDiv = document.querySelector("#results");
+const scoreDiv = document.querySelector("#score");
+const winnerDiv = document.querySelector("#winner");
+const buttons = document.querySelectorAll(".buttons button");
+
+function playRound(humanChoice, computerChoice) {
+    if (humanChoice === computerChoice) {
+        resultsDiv.textContent = "it's a tie!";
+    } 
+    else if (
+        (humanChoice === "rock" && computerChoice === "scissors") ||
+        (humanChoice === "paper" && computerChoice === "rock") ||
+        (humanChoice === "scissors" && computerChoice === "paper")
+    ) {
+        resultsDiv.textContent = "you win!";
+        humanScore++;
+        scoreDiv.textContent = `You: ${humanScore} | Computer: ${computerScore}`;
+    } 
+    else {
+        resultsDiv.textContent = "computer win!";
+        computerScore++;
+        scoreDiv.textContent = `You: ${humanScore} | Computer: ${computerScore}`;
+    }
+    checkWin();
 }
 
 
-function playGame() {
-    let computerScore = 0;
-    let humanScore = 0;
-    for (let i = 0; i < 3; i++) {
-        let computerChoice = getComputerChoice();
-        let humanChoice = getUserInput();
-        console.log(computerChoice);
-        console.log(humanChoice);
-        humanChoice = humanChoice.toLowerCase();
+buttons.forEach(function(button) {
+    button.addEventListener("click", function() {
+        const humanChoice = button.id;
+        const computerChoice = getComputerChoice();
+        playRound(humanChoice, computerChoice);
+    });
+});
 
-        if (humanChoice === computerChoice) {
-            console.log("it's a tie!");
-        }
-        else if (
-            (humanChoice === "rock" && computerChoice === "scissors") ||
-            (humanChoice === "paper" && computerChoice === "rock") ||
-            (humanChoice === "scissors" && computerChoice === "paper")
-        ) {
-            console.log("human you winn!!");
-            humanScore++;
-        }
-        else {
-            console.log("Computer you winn! :(");
-            computerScore++;
-        }
+function checkWin() {
+    if (humanScore === 5) {
+        winnerDiv.textContent = "Human you win!!!";
+        buttons.forEach(function(button) {
+            button.disabled = true;
+        });
     }
-
-    console.log(humanScore);
-    console.log(computerScore);
-    
-    if (humanScore > computerScore) {
-        console.log("human wins");
-    }
-    else if (humanScore < computerScore) {
-        console.log("computer wins");
+    else if (computerScore === 5) {
+        winnerDiv.textContent = "Computer you win!!!";
+        buttons.forEach(function(button) {
+            button.disabled = true;
+        });
     }
     else {
-        console.log("it's a tie");
+        winnerDiv.textContent = "nobody won yet";
     }
-
 }
-
-
-playGame();
